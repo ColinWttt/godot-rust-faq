@@ -50,9 +50,12 @@ impl MyClass {
 - Immutable: `self.base().get_name()`
 - Mutable: `self.base_mut().set_position(Vector2::ZERO)`
 
-**Q: How do I get an immutable reference (&T) from a `Gd<T>`?**
+**Q: How do I get reference (&T) from a `Gd<T>`?**
 
-**A:** `&*my_gd`
+**A:**
+
+- Immutable: `&*gd.bind()`
+- Mutable: `&mut *gd.bind_mut()`
 
 **Q: How do I get a `Gd<T>` reference to the current instance from within one of its methods?**
 
@@ -97,25 +100,18 @@ node.call("free", &[]);
 **A:** Declare the method within an impl block annotated with `#[godot_api]`. Mark the specific function you want to expose with the `#[func]` attribute.
 
 ```rust
-#[derive(GodotClass)]
-#[class(init, base = Node)]
-struct MyCallableClass {
-    base: Base<Node>,
-    value: i32,
-}
-
 #[godot_api]
 impl MyCallableClass {
-    #[func] // This makes the function callable from Godot
-    fn print_value(&self) {
-        godot_print!("My value is: {}", self.value);
+    #[func] // makes a function available to the Godot engine.
+    fn print_value() {
+        godot_print!("Hello");
     }
 }
 ```
 
 ## Common Errors
 
-### Error: `Gd<T>::bind_mut()` failed, already bound; T =
+### Error: `Gd<T>::bind_mut()` failed, already bound
 
 **Cause:** This error typically occurs when you attempt to get a mutable borrow (`bind_mut()`) of a Godot object that is already borrowed (either immutably or mutably). A common scenario is calling `self.to_gd().bind_mut()` inside a `&mut self` method.
 
