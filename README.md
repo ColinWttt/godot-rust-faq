@@ -28,7 +28,7 @@ impl MyClass {
 
 **Q: How do I inherit from another custom Rust class?**
 
-**A:** Currently, inheriting from another custom Rust class defined via `#[derive(GodotClass)]` is not  supported.
+**A:** Currently, inheriting from another custom Rust class is not supported.
 
 ## Working with Classes
 
@@ -40,8 +40,8 @@ impl MyClass {
 
 **A:** Use [`Gd::bind()`](https://godot-rust.github.io/docs/gdext/master/godot/prelude/struct.Gd.html#method.bind) for immutable access or [`Gd::bind_mut()`](https://godot-rust.github.io/docs/gdext/master/godot/prelude/struct.Gd.html#method.bind_mut) for mutable access.
 
-- Immutable access: `let node_name = my_node.bind().get_name();`
-- Mutable access: `my_node.bind_mut().set_name("NewName");`
+- Immutable access: `let ret = gd.bind().get_method();`
+- Mutable access: `gd.bind_mut().set_method(...);`
 
 **Q: How do I call engine methods from the base class of my custom Rust struct?**
 
