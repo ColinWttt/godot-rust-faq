@@ -2,15 +2,19 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
+const isGithubPages = process.env.GITHUB_PAGES === "true";
+
+const base = isGithubPages ? "/godot-rust-faq/" : "/";
+
 // https://astro.build/config
 export default defineConfig({
   redirects: {
-    "/": "/how/custom_classes",
+    "/": `${base}how/custom_classes/`,
   },
   integrations: [
     starlight({
       title: "Godot Rust FAQ",
-      lastUpdated:true,
+      lastUpdated: true,
 
       social: [
         {
@@ -30,9 +34,7 @@ export default defineConfig({
         },
         {
           label: "Common Errors",
-          items: [
-            "errors/errors",
-          ],
+          items: ["errors/errors"],
         },
       ],
     }),
