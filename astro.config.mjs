@@ -34,7 +34,7 @@ export default defineConfig({
         },
         {
           label: "Common Errors",
-          items: ["errors/errors"],
+          autogenerate: { directory: 'errors' },
         },
       ],
     }),
